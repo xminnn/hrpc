@@ -48,10 +48,10 @@ static long long server_count_time = 0;
 #define k_test_size 100
 
 void on_client_data(int nid, void* data, unsigned int size) {
-    char* text = hrpc_send(1, k_test_size);
-    strcpy(text, "123321");
-    server_count_size += size;
-    server_count++;
+    // char* text = hrpc_send(1, k_test_size);
+    // strcpy(text, "123321");
+    // server_count_size += size;
+    // server_count++;
 }
 
 void on_server_data(int nid, void* data, unsigned int size) {
@@ -87,10 +87,6 @@ int main(int argc, char const* argv[]) {
     }
     if (strcmp(argv[1], "client") == 0) {
         int ret = hrpc_init("./fmap.bin.client", 2, 0, get_addr);
-        for (int i = 0; i < 200; i++) {
-            char* text = hrpc_send(1, k_test_size);
-            strcpy(text, "123321");
-        }
         if (ret == 0) {
             printf("client init failed\n");
             return -1;
@@ -106,7 +102,7 @@ int main(int argc, char const* argv[]) {
             server_count_size = 0;
         }
         if (is_client) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 100; i++) {
                 char* text = hrpc_send(1, k_test_size);
                 strcpy(text, "123321");
             }
